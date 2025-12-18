@@ -669,23 +669,7 @@ async function getGeminiResponse(userMessage) {
 
     } catch (error) {
         console.error('Error fetching Gemini response:', error);
-        // Fallback to simulation in case of error (e.g. invalid key) to ensure app doesn't break
-        setTimeout(() => {
-            const fallbackResponses = [
-                "That sounds great!",
-                "I'll be there in 10 minutes.",
-                "Can't connect to the network right now.",
-                "The weather is perfect today!"
-            ];
-            const responseMessage = {
-                sender: state.groupMembers[Math.floor(Math.random() * state.groupMembers.length)],
-                message: fallbackResponses[Math.floor(Math.random() * fallbackResponses.length)],
-                time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
-                type: 'received'
-            };
-            state.chatMessages.push(responseMessage);
-            renderChatMessages();
-        }, 1000);
+        alert('System Error: ' + error.message);
     }
 }
 
