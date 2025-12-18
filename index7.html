@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VoYatra - Smart Travel Companion</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <link rel="stylesheet" href="/style.css">
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+</head>
+
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <nav class="navbar">
+                <div class="logo">
+                    <i class="fas fa-route"></i>
+                    <span>VoYatra</span>
+                </div>
+                <div class="nav-links">
+                    <a href="#features">Features</a>
+                    <a href="#dashboard">Dashboard</a>
+                    <a href="#safety">Safety</a>
+                    <a href="#reviews">Reviews</a>
+                </div>
+                <div class="auth-buttons" id="authButtons">
+                    <button class="btn btn-outline" id="loginBtn">Login</button>
+                    <button class="btn btn-primary" id="signupBtn">Sign Up</button>
+
+                </div>
+                <div id="userMenu" style="display: none;">
+                    <div class="user-profile-bubble" onclick="switchTab('profile')">
+                        <div class="user-avatar-small" id="userAvatarSmall">U</div>
+                        <span id="userName">User</span>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1>Travel Smarter, Safer & Together</h1>
+            <p>VoYatra is the all-in-one travel platform that combines finance tracking, safety features, and community
+                coordination for the perfect travel experience.</p>
+            <div class="hero-buttons">
+                <button class="btn btn-primary" id="startJourneyBtn">Get Started</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="section" id="features">
+        <div class="container">
+            <div class="section-title">
+                <h2>Innovative Features</h2>
+                <p>VoYatra brings together all the tools you need for a perfect trip in one seamless application</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card" onclick="switchTab('planning')">
+                    <div class="feature-icon">
+                        <i class="fas fa-wallet"></i>
+                    </div>
+                    <h3>Budget Tracking</h3>
+                    <p>Track expenses for food, accommodation, and activities with daily budget alerts and spending
+                        insights.</p>
+                </div>
+                <div class="feature-card" onclick="switchTab('planning')">
+                    <div class="feature-icon">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <h3>AI Recommendations</h3>
+                    <p>Get personalized suggestions for destinations, hotels, and restaurants based on your budget and
+                        preferences.</p>
+                </div>
+                <div class="feature-card" onclick="switchTab('group')">
+                    <div class="feature-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3>Group Coordination</h3>
+                    <p>Plan and travel together with shared itineraries, group chats, and real-time location sharing.
+                    </p>
+                </div>
+                <div class="feature-card" onclick="switchTab('safety')">
+                    <div class="feature-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3>Safety First</h3>
+                    <p>Emergency alerts, SOS button, crowd warnings, and nearest help points for peace of mind.</p>
+                </div>
+                <div class="feature-card" onclick="switchTab('reviews')">
+                    <div class="feature-icon">
+                        <i class="fas fa-camera"></i>
+                    </div>
+                    <h3>Instant Reviews</h3>
+                    <p>Share authentic experiences with photo-based reviews and ratings for hotels and restaurants.</p>
+                </div>
+                <div class="feature-card" onclick="switchTab('planning')">
+                    <div class="feature-icon">
+                        <i class="fas fa-map-marked-alt"></i>
+                    </div>
+                    <h3>Live Maps</h3>
+                    <p>Real-time navigation with weather updates, festival alerts, and crowded area notifications.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Dashboard Preview -->
+    <section class="section" id="dashboard">
+        <div class="container">
+            <div class="section-title">
+                <h2>All-In-One Dashboard</h2>
+                <p>Everything you need in a single view - budget, navigation, group coordination, and safety features
+                </p>
+            </div>
+            <div class="dashboard-preview">
+                <div class="dashboard-tabs">
+                    <div class="tab active" onclick="switchTab('planning')">Trip Planning</div>
+                    <div class="tab" onclick="switchTab('budget')">Budget Tracking</div>
+                    <div class="tab" onclick="switchTab('group')">Group Coordination</div>
+                    <div class="tab" onclick="switchTab('reviews')">Reviews</div>
+                    <div class="tab" onclick="switchTab('profile')">Profile</div>
+                </div>
+                <div class="tab-content active" id="planning-tab">
+                    <div class="dashboard-grid">
+                        <div class="map-container">
+                            <div id="map">
+                                <!-- Paste this where you want the map -->
+                                <iframe width="100%" height="400" frameborder="0" scrolling="no" marginheight="0"
+                                    marginwidth="0"
+                                    src="https://www.openstreetmap.org/export/embed.html?bbox=77.1,28.6,77.2,28.7&layer=mapnik&marker=28.65,77.15"
+                                    style="border-radius:12px;">
+                                </iframe>
+
+                                <br />
+                                <small>
+                                    <a href="https://www.openstreetmap.org/?mlat=28.65&mlon=77.15#map=12/28.65/77.15"
+                                        target="_blank">
+                                        View Larger Map
+                                    </a>
+                                </small>
+
+                            </div>
+                        </div>
+                        <div class="side-panel">
+                            <div class="budget-card">
+                                <h3>Trip Planner</h3>
+                                <div class="form-group">
+                                    <label for="destination">Destination</label>
+                                    <input type="text" id="destination" class="form-control"
+                                        placeholder="Enter destination">
+                                </div>
+                                <div class="form-group">
+                                    <label for="trip-budget">Budget ($)</label>
+                                    <input type="number" id="trip-budget" class="form-control"
+                                        placeholder="Total budget" value="1000">
+                                </div>
+                                <div class="form-group">
+                                    <label for="trip-duration">Duration (days)</label>
+                                    <input type="number" id="trip-duration" class="form-control"
+                                        placeholder="Trip duration" value="5">
+                                </div>
+                                <button class="btn btn-primary" style="width: 100%;" onclick="getRecommendations()">Get
+                                    Recommendations</button>
+                            </div>
+                            <div class="alerts-card" id="trip-info">
+                                <h3>Trip Information</h3>
+                                <div id="selected-plan-info">
+                                    <p>No plan selected yet. Get recommendations to see available plans.</p>
+                                </div>
+                                <div id="recommendations-container">
+                                    <!-- Recommendations will be added here -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-content" id="budget-tab">
+                    <div class="dashboard-grid">
+                        <div class="budget-card" style="grid-column: 1 / -1;">
+                            <h3>Budget Management</h3>
+                            <div class="form-group">
+                                <label for="total-budget">Set Trip Budget</label>
+                                <div style="display: flex; gap: 10px;">
+                                    <input type="number" id="total-budget" class="form-control"
+                                        placeholder="Total budget" value="0">
+                                    <button class="btn btn-primary" onclick="setBudget()">Set Budget</button>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="expense-category">Add Expense</label>
+                                <div style="display: flex; gap: 10px; margin-bottom: 10px;">
+                                    <select id="expense-category" class="form-control">
+                                        <option value="food">Food</option>
+                                        <option value="accommodation">Accommodation</option>
+                                        <option value="transport">Transport</option>
+                                        <option value="activities">Activities</option>
+                                        <option value="shopping">Shopping</option>
+                                        <option value="miscellaneous">Miscellaneous</option>
+                                    </select>
+                                    <input type="number" id="expense-amount" class="form-control" placeholder="Amount">
+                                    <input type="text" id="expense-description" class="form-control"
+                                        placeholder="Description">
+                                    <button class="btn btn-primary" onclick="addExpense()">Add</button>
+                                </div>
+                            </div>
+                            <div class="expense-list">
+                                <h4>Recent Expenses</h4>
+                                <div id="expenses-container">
+                                    <!-- Expenses will be added here dynamically -->
+                                </div>
+                            </div>
+                            <div class="chart-container">
+                                <canvas id="budgetChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-content" id="group-tab">
+                    <div class="dashboard-grid">
+                        <div class="budget-card" style="grid-column: 1 / -1;">
+                            <h3>Group Coordination</h3>
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+                                <div>
+                                    <h4>Group Members</h4>
+                                    <div class="group-members" style="flex-wrap: wrap;">
+                                        <div class="member">AJ</div>
+                                        <div class="member">SP</div>
+                                        <div class="member">RK</div>
+                                        <div class="member">MV</div>
+                                        <div class="member">TP</div>
+                                    </div>
+                                    <div style="margin-top: 1rem;">
+                                        <button class="btn btn-outline" onclick="shareLocation()">
+                                            <i class="fas fa-location-arrow"></i> Share My Location
+                                        </button>
+                                    </div>
+                                    <div style="margin-top: 1rem;">
+                                        <h4>Shared Itinerary</h4>
+                                        <ul style="margin-top: 0.5rem; padding-left: 1.5rem;">
+                                            <li>Day 1: Arrival & City Tour</li>
+                                            <li>Day 2: Mountain Hike</li>
+                                            <li>Day 3: Beach & Local Market</li>
+                                            <li>Day 4: Cultural Sites & Departure</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div>
+                                    <h4>Group Chat</h4>
+                                    <div class="chat-container">
+                                        <div class="chat-messages" id="chat-messages">
+                                            <div class="message received">
+                                                <strong>AJ:</strong> Has everyone reached the hotel?
+                                            </div>
+                                            <div class="message sent">
+                                                <strong>You:</strong> Yes, just checked in. The view is amazing!
+                                            </div>
+                                            <div class="message received">
+                                                <strong>RK:</strong> I'm 10 minutes away. See you soon!
+                                            </div>
+                                            <div class="message received">
+                                                <strong>SP:</strong> Let's meet at the rooftop restaurant at 7 PM for
+                                                dinner.
+                                            </div>
+                                        </div>
+                                        <div class="chat-input">
+                                            <input type="text" id="chat-input" placeholder="Type your message...">
+                                            <button class="btn btn-primary" onclick="sendMessage()">Send</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-content" id="reviews-tab">
+                    <div class="dashboard-grid">
+                        <div class="budget-card" style="grid-column: 1 / -1;">
+                            <h3>Photo Reviews</h3>
+                            <div style="display: flex; gap: 1rem; margin-bottom: 1.5rem;">
+                                <button class="btn btn-primary" onclick="openAddReviewModal()">
+                                    <i class="fas fa-plus"></i> Add Review
+                                </button>
+                                <button class="btn-blue" onclick="filterReviews('all')">All</button>
+                                <button class="btn-blue" onclick="filterReviews('hotels')">Hotels</button>
+                                <button class="btn-blue" onclick="filterReviews('restaurants')">Restaurants</button>
+                                <button class="btn-blue" onclick="filterReviews('attractions')">Attractions</button>
+                            </div>
+                            <div class="reviews-container" id="reviews-list">
+                                <!-- Reviews will be added here dynamically -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-content" id="profile-tab">
+                    <div class="profile-section">
+                        <div class="profile-sidebar">
+                            <div class="user-avatar">
+                                <i class="fas fa-user"></i>
+                            </div>
+                            <h3 id="profile-name">User Name</h3>
+                            <p id="profile-email">user@example.com</p>
+                            <div style="margin-top: 1.5rem;">
+                                <h4>Travel Stats</h4>
+                                <p>Trips: <span id="trips-count">0</span></p>
+                                <p>Countries: <span id="countries-count">0</span></p>
+                                <p>Reviews: <span id="reviews-count">0</span></p>
+                            </div>
+                        </div>
+                        <div class="profile-main">
+                            <h3>Current Journey</h3>
+                            <div id="current-journey">
+                                <!-- Current journey details will be added here -->
+                            </div>
+                            <div style="margin-top: 2rem;">
+                                <h3>Travel Preferences</h3>
+                                <div class="form-group">
+                                    <label for="pref-budget">Preferred Budget Range</label>
+                                    <select id="pref-budget" class="form-control">
+                                        <option value="budget">Budget ($500-1000)</option>
+                                        <option value="mid-range">Mid-Range ($1000-2500)</option>
+                                        <option value="luxury">Luxury ($2500+)</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="pref-accommodation">Preferred Accommodation</label>
+                                    <select id="pref-accommodation" class="form-control">
+                                        <option value="hostel">Hostel</option>
+                                        <option value="hotel">Hotel</option>
+                                        <option value="apartment">Apartment</option>
+                                        <option value="resort">Resort</option>
+                                    </select>
+                                </div>
+                                <button class="btn btn-primary" onclick="savePreferences()">Save Preferences</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Safety Section -->
+    <section class="section safety-section" id="safety">
+        <div class="container">
+            <div class="section-title">
+                <h2>Safety First Approach</h2>
+                <p>Your security is our priority with emergency features and real-time alerts</p>
+            </div>
+            <div class="sos-button" id="sosButton">
+                <i class="fas fa-bell" style="margin-right: 10px;"></i>
+                SOS EMERGENCY
+            </div>
+            <div class="safety-features">
+                <div class="feature-card">
+                    <h3>Emergency Contacts</h3>
+                    <p>Quick access to local police, hospitals, and your emergency contacts with one tap.</p>
+                    <button class="btn-blue" style="margin-top: 1rem;" onclick="showEmergencyContacts()">View
+                        Contacts</button>
+                </div>
+                <div class="feature-card">
+                    <h3>Crowd Alerts</h3>
+                    <p>Real-time notifications about crowded areas to help you avoid potentially unsafe situations.</p>
+                    <button class="btn-blue" style="margin-top: 1rem;" onclick="checkCrowdAlerts()">Check
+                        Alerts</button>
+                </div>
+                <div class="feature-card">
+                    <h3>Location Sharing</h3>
+                    <p>Automatically share your location with trusted contacts during emergencies.</p>
+                    <button class="btn-blue" style="margin-top: 1rem;" onclick="manageLocationSharing()">Manage
+                        Sharing</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Reviews Section -->
+    <section class="section" id="reviews">
+        <div class="container">
+            <div class="section-title">
+                <h2>Instant Photo Reviews</h2>
+                <p>Authentic experiences shared by the travel community</p>
+            </div>
+            <div class="reviews-container">
+                <div class="review-card">
+                    <div class="review-image"
+                        style="background-image: url('https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80');">
+                    </div>
+                    <div class="review-content">
+                        <div class="review-meta">
+                            <span>Beach Resort</span>
+                            <span>⭐ 4.8</span>
+                        </div>
+                        <p>Beautiful location with amazing sunset views. The staff was very helpful!</p>
+                    </div>
+                </div>
+                <div class="review-card">
+                    <div class="review-image"
+                        style="background-image: url('https://images.unsplash.com/photo-1414235077428-338989a2e8c0?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80');">
+                    </div>
+                    <div class="review-content">
+                        <div class="review-meta">
+                            <span>Mountain Cafe</span>
+                            <span>⭐ 4.5</span>
+                        </div>
+                        <p>Great food with a spectacular view. A bit crowded during weekends.</p>
+                    </div>
+                </div>
+                <div class="review-card">
+                    <div class="review-image"
+                        style="background-image: url('https://images.unsplash.com/photo-1566073771259-6a8506099945?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80');">
+                    </div>
+                    <div class="review-content">
+                        <div class="review-meta">
+                            <span>Heritage Hotel</span>
+                            <span>⭐ 4.2</span>
+                        </div>
+                        <p>Historic building with modern amenities. Loved the traditional architecture!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- 🔹 LOGIN / SIGNUP POPUP -->
+    <div id="auth-modal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+
+            <!-- LOGIN FORM -->
+            <form id="login-form">
+                <h2>Login</h2>
+                <input type="email" name="email" placeholder="Email" required>
+                <input type="password" name="password" placeholder="Password" required>
+                <button type="submit" class="btn btn-primary">Login</button>
+                <p>Don't have an account? <a href="#" onclick="toggleAuth('signup')">Sign Up</a></p>
+            </form>
+
+            <!-- SIGNUP FORM -->
+            <form id="signup-form" style="display: none;">
+                <h2>Sign Up</h2>
+                <input type="text" name="name" placeholder="Full Name" required>
+                <input type="email" name="email" placeholder="Email" required>
+                <input type="password" name="password" placeholder="Password" required>
+                <button type="submit" class="btn btn-primary">Sign Up</button>
+                <p>Already have an account? <a href="#" onclick="toggleAuth('login')">Login</a></p>
+            </form>
+        </div>
+    </div>
+
+
+
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-column">
+                    <h3>VoYatra</h3>
+                    <a href="#">About Us</a>
+                    <a href="#">Careers</a>
+                    <a href="#">Press</a>
+                    <a href="#">Blog</a>
+                </div>
+                <div class="footer-column">
+                    <h3>Features</h3>
+                    <a href="#features">Budget Tracking</a>
+                    <a href="#safety">Safety Features</a>
+                    <a href="#dashboard">Group Travel</a>
+                    <a href="#dashboard">AI Recommendations</a>
+                </div>
+                <div class="footer-column">
+                    <h3>Support</h3>
+                    <a href="#">Help Center</a>
+                    <a href="#">Community</a>
+                    <a href="#safety">Safety Center</a>
+                    <a href="#">Contact Us</a>
+                </div>
+                <div class="footer-column">
+                    <h3>Download</h3>
+                    <a href="#">Android App</a>
+                    <a href="#">iOS App</a>
+                    <a href="#">Web Version</a>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2025 VoYatra. All rights reserved. | SIH2025 Project - Team VoYatra</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Login/Register Modal -->
+    <div class="modal" id="authModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Welcome to VoYatra</h3>
+                <button class="close-modal" onclick="closeAuthModal()">&times;</button>
+            </div>
+            <div class="auth-tabs">
+                <div class="auth-tab active" onclick="switchAuthTab('login')">Login</div>
+                <div class="auth-tab" onclick="switchAuthTab('register')">Register</div>
+            </div>
+            <div class="auth-content active" id="login-content">
+                <div class="form-group">
+                    <label for="login-email">Email</label>
+                    <input type="email" id="login-email" class="form-control" placeholder="Enter your email">
+                </div>
+                <div class="form-group">
+                    <label for="login-password">Password</label>
+                    <input type="password" id="login-password" class="form-control" placeholder="Enter your password">
+                </div>
+                <button class="btn btn-primary" style="width: 100%;" onclick="login()">Login</button>
+                <p style="text-align: center; margin-top: 1rem;">Don't have an account? <a href="script.js"
+                        onclick="switchAuthTab('register')">Create one</a></p>
+            </div>
+            <div class="auth-content" id="register-content">
+                <div class="form-group">
+                    <label for="register-name">Full Name</label>
+                    <input type="text" id="register-name" class="form-control" placeholder="Enter your full name">
+                </div>
+                <div class="form-group">
+                    <label for="register-email">Email</label>
+                    <input type="email" id="register-email" class="form-control" placeholder="Enter your email">
+                </div>
+                <div class="form-group">
+                    <label for="register-password">Password</label>
+                    <input type="password" id="register-password" class="form-control" placeholder="Create a password">
+                </div>
+                <div class="form-group">
+                    <label for="register-confirm">Confirm Password</label>
+                    <input type="password" id="register-confirm" class="form-control"
+                        placeholder="Confirm your password">
+                </div>
+                <button class="btn btn-primary" style="width: 100%;" onclick="register()">Create Account</button>
+                <p style="text-align: center; margin-top: 1rem;">Already have an account? <a href="#"
+                        onclick="switchAuthTab('login')">Login</a></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Profile Setup Modal -->
+    <div class="modal" id="profileSetupModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Complete Your Profile</h3>
+                <button class="close-modal" onclick="closeProfileSetupModal()">&times;</button>
+            </div>
+            <div class="form-group">
+                <label for="setup-full-name">Full Name</label>
+                <input type="text" id="setup-full-name" class="form-control" placeholder="Enter your full name">
+            </div>
+            <div class="form-group">
+                <label for="setup-age">Age</label>
+                <input type="number" id="setup-age" class="form-control" placeholder="Enter your age">
+            </div>
+            <div class="form-group">
+                <label for="setup-gender">Gender</label>
+                <select id="setup-gender" class="form-control">
+                    <option value="">Select Gender</option>
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                    <option value="other">Other</option>
+                    <option value="prefer-not-to-say">Prefer not to say</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="setup-phone">Phone Number</label>
+                <input type="tel" id="setup-phone" class="form-control" placeholder="Enter your phone number">
+            </div>
+            <div class="form-group">
+                <label for="setup-address">Address</label>
+                <textarea id="setup-address" class="form-control" rows="2" placeholder="Enter your address"></textarea>
+            </div>
+            <button class="btn btn-primary" style="width: 100%;" onclick="completeProfileSetup()">Complete
+                Profile</button>
+        </div>
+    </div>
+
+    <!-- Add Review Modal -->
+    <div class="modal" id="addReviewModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Add New Review</h3>
+                <button class="close-modal" onclick="closeAddReviewModal()">&times;</button>
+            </div>
+            <div class="form-group">
+                <label for="review-place">Place Name</label>
+                <input type="text" id="review-place" class="form-control" placeholder="Enter place name">
+            </div>
+            <div class="form-group">
+                <label for="review-category">Category</label>
+                <select id="review-category" class="form-control">
+                    <option value="hotels">Hotel</option>
+                    <option value="restaurants">Restaurant</option>
+                    <option value="attractions">Attraction</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="review-rating">Rating</label>
+                <select id="review-rating" class="form-control">
+                    <option value="5">⭐ 5 - Excellent</option>
+                    <option value="4">⭐ 4 - Very Good</option>
+                    <option value="3">⭐ 3 - Good</option>
+                    <option value="2">⭐ 2 - Fair</option>
+                    <option value="1">⭐ 1 - Poor</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="review-comment">Comment</label>
+                <textarea id="review-comment" class="form-control" rows="3"
+                    placeholder="Share your experience..."></textarea>
+            </div>
+            <div class="form-group">
+                <label for="review-image">Upload Photo</label>
+                <input type="file" id="review-image" class="form-control" accept="image/*" onchange="previewImage()">
+                <img id="image-preview" class="image-preview" src="" alt="Image Preview">
+            </div>
+            <button class="btn btn-primary" style="width: 100%;" onclick="submitReview()">Submit Review</button>
+        </div>
+    </div>
+
+    <!-- Emergency Contacts Modal -->
+    <div class="modal" id="emergencyContactsModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Emergency Contacts</h3>
+                <button class="close-modal" onclick="closeEmergencyContactsModal()">&times;</button>
+            </div>
+            <div class="emergency-contacts">
+                <div
+                    style="display: flex; justify-content: space-between; padding: 1rem; border-bottom: 1px solid #e9ecef;">
+                    <div>
+                        <strong>Police</strong>
+                        <p>100</p>
+                    </div>
+                    <button class="btn btn-outline">Call</button>
+                </div>
+                <div
+                    style="display: flex; justify-content: space-between; padding: 1rem; border-bottom: 1px solid #e9ecef;">
+                    <div>
+                        <strong>Ambulance</strong>
+                        <p>102</p>
+                    </div>
+                    <button class="btn btn-outline">Call</button>
+                </div>
+                <div
+                    style="display: flex; justify-content: space-between; padding: 1rem; border-bottom: 1px solid #e9ecef;">
+                    <div>
+                        <strong>Fire Department</strong>
+                        <p>101</p>
+                    </div>
+                    <button class="btn btn-outline">Call</button>
+                </div>
+                <div style="display: flex; justify-content: space-between; padding: 1rem;">
+                    <div>
+                        <strong>Emergency Contact</strong>
+                        <p>+91 98765 43210</p>
+                    </div>
+                    <button class="btn btn-outline">Call</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notification -->
+    <div class="notification" id="notification">
+        <div id="notification-message">This is a notification</div>
+    </div>
+    <script src="/script.js"></script>
+
+</body>
+
+</html>
